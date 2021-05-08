@@ -43,7 +43,7 @@ __page_reporting_request(struct page_reporting_dev_info *prdev)
 	 * now we are limiting this to running no more than once every
 	 * couple of seconds.
 	 */
-	queue_delayed_work(system_freezable_wq, &prdev->work,
+	queue_delayed_work(system_power_efficient_wq, &prdev->work,
 			   PAGE_REPORTING_DELAY);
 }
 
@@ -307,7 +307,7 @@ err_out:
 	 */
 	state = atomic_cmpxchg(&prdev->state, state, PAGE_REPORTING_IDLE);
 	if (state == PAGE_REPORTING_REQUESTED)
-		queue_delayed_work(system_freezable_wq, &prdev->work,
+		queue_delayed_work(system_power_efficient_wq, &prdev->work,
 				   PAGE_REPORTING_DELAY);
 }
 
